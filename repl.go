@@ -16,9 +16,13 @@ func startRepl(cfg *Config) {
 		scanner.Scan()
 		text := cleanInput(scanner.Text())
 		commandName := text[0]
+		arg := ""
+		if len(text) > 1 {
+			arg = text[1]
+		}
 		command, ok := getCommands()[commandName]
 		if ok {
-			err := command.callback(cfg)
+			err := command.callback(arg, cfg)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -39,13 +43,14 @@ func cleanInput(text string) []string {
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(*Config) error
+	callback    func(arg string, cfg *Config) error
 }
 
 type Config struct {
 	pokeapiClient pokeapi.Client
 	Next          *string
 	Previous      *string
+	current       *string
 }
 
 func getCommands() map[string]cliCommand {
@@ -69,6 +74,11 @@ func getCommands() map[string]cliCommand {
 			name:        "mapb",
 			description: "Display previous 20 location areas",
 			callback:    commandMapB,
+		},
+		"explore": {
+			name:        "explore",
+			description: "Explore a location area and display pokemon found there",
+			callback:    commandExplore,
 		},
 	}
 }
