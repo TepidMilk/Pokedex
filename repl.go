@@ -44,7 +44,6 @@ type cliCommand struct {
 
 type Config struct {
 	pokeapiClient pokeapi.Client
-	pokeapiCache  pokeapi.Cache
 	Next          *string
 	Previous      *string
 }
