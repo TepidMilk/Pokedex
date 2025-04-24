@@ -8,12 +8,12 @@ import (
 
 func (c *Client) ListLocations(pageURL *string) (Locations, error) {
 	url := baseURL + "/location-area"
-	var locationsResp Locations
 	if pageURL != nil {
 		url = *pageURL
 	}
 	dat, ok := c.cache.Get(url)
 	if ok {
+		locationsResp := Locations{}
 		err := json.Unmarshal(dat, &locationsResp)
 		if err != nil {
 			return Locations{}, err
@@ -31,16 +31,19 @@ func (c *Client) ListLocations(pageURL *string) (Locations, error) {
 		return Locations{}, err
 	}
 	defer res.Body.Close()
+
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		return Locations{}, err
 	}
 	c.cache.Add(url, body)
 
-	decoder := json.NewDecoder(res.Body)
-	if err = decoder.Decode(&locationsResp); err != nil {
+	locationsResp := Locations{}
+	err = json.Unmarshal(body, &locationsResp)
+	if err != nil {
 		return Locations{}, err
 	}
 
 	return locationsResp, nil
+
 }
