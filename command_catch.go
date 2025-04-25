@@ -34,8 +34,8 @@ func commandCatch(pokemon string, cfg *Config) error {
 }
 
 func catchPokemon(baseEXP int) bool {
-	M := rand.Intn(255) //Catch value
-	health := rand.Intn(baseEXP)
+	M := rand.Intn(255) + 1 //Catch value
+	health := rand.Intn(baseEXP) + 1
 	f := (baseEXP * 255 * 4) / (health * 12)
 	return f >= M
 }
