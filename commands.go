@@ -13,6 +13,7 @@ type Config struct {
 	Next          *string
 	Previous      *string
 	current       []string
+	caughtPokemon map[string]pokeapi.Pokemon
 }
 
 func getCommands() map[string]cliCommand {
