@@ -2,6 +2,7 @@ package pokeapi
 
 import (
 	"encoding/json"
+	"errors"
 	"io"
 	"net/http"
 )
@@ -38,7 +39,7 @@ func (c *Client) ExploreLocation(location string) (exploreDat, error) {
 	exploreResp := exploreDat{}
 	err = json.Unmarshal(body, &exploreResp)
 	if err != nil {
-		return exploreDat{}, err
+		return exploreDat{}, errors.New("invalid location")
 	}
 
 	return exploreResp, nil

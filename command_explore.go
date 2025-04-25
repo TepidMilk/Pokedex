@@ -9,6 +9,7 @@ func commandExplore(location string, cfg *Config) error {
 	if location == "" {
 		return errors.New("invalid location area")
 	}
+
 	exploreResp, err := cfg.pokeapiClient.ExploreLocation(location)
 	if err != nil {
 		return err
