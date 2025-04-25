@@ -14,13 +14,18 @@ func commandExplore(location string, cfg *Config) error {
 		return err
 	}
 
-	cfg.current = &location
+	//list of current pokemon
+	currentPokemon := []string{}
 
 	fmt.Printf("Exploring %s...\n", location)
 	fmt.Print("Found Pokemon:\n")
 	for _, pokemonEncounter := range exploreResp.PokemonEncounters {
 		fmt.Println(" - ", pokemonEncounter.Pokemon.Name)
+		currentPokemon = append(currentPokemon, pokemonEncounter.Pokemon.Name)
 	}
+
+	//configure current pokemon
+	cfg.current = currentPokemon
 
 	return nil
 }

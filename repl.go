@@ -50,7 +50,7 @@ type Config struct {
 	pokeapiClient pokeapi.Client
 	Next          *string
 	Previous      *string
-	current       *string
+	current       []string
 }
 
 func getCommands() map[string]cliCommand {
