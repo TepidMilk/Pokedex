@@ -13,7 +13,7 @@ type Config struct {
 	Next          *string
 	Previous      *string
 	current       []string
-	caughtPokemon map[string]pokeapi.Pokemon
+	Pokedex       map[string]pokeapi.Pokemon
 }
 
 func getCommands() map[string]cliCommand {
@@ -47,6 +47,11 @@ func getCommands() map[string]cliCommand {
 			name:        "catch",
 			description: "Attempt to catcha pokemon in current area",
 			callback:    commandCatch,
+		},
+		"inspect": {
+			name:        "inspect",
+			description: "Inspect a pokemon you've caught in your pokedex",
+			callback:    commandInspect,
 		},
 	}
 }
